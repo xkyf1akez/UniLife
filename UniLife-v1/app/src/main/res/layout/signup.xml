@@ -6,16 +6,18 @@
     android:background="#29A9D2"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/Title"
+    <TextView
+        android:id="@+id/textView9"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="#00649B"
-        android:ems="10"
-        android:inputType="textPersonName"
         android:paddingLeft="15dp"
+        android:paddingTop="15dp"
         android:text="Create A UniLife Account"
-        android:textSize="30sp" />
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="7dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
-            android:hint="Username"
+            android:hint="e.g., jln23@bath.ac.uk"
             android:inputType="textPersonName" />
 
         <TextView
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
-            android:hint="password"
+            android:hint="•••••••••••"
             android:inputType="textPassword" />
 
         <TextView
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
-            android:hint="Password"
+            android:hint="Re-enter Password"
             android:inputType="textPassword" />
 
         <TextView
@@ -99,6 +101,12 @@
             android:ems="10"
             android:hint="department"
             android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I accept the Terms of Service and Privacy Policy" />
 
         <LinearLayout
             android:layout_width="match_parent"

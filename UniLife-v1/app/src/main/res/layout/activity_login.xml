@@ -12,7 +12,8 @@
         android:layout_height="495dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/Title"
@@ -20,6 +21,7 @@
             android:layout_height="140dp"
             android:background="#00649B"
             android:paddingLeft="90dp"
+            android:paddingRight="90dp"
             android:paddingTop="30dp"
             android:text="UniLife"
             android:textSize="60sp" />
