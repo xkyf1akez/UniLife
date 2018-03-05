@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 */
 
-public class Database {
+public class DatabaseOld {
     private String results;
 
     private static final String TAG_SUCCESS = "success";
@@ -125,7 +125,6 @@ public class Database {
             //String tempURL = requestURL + "getAllUsers";
             Log.d("request URL", tempURL);
             try {
-                //TODO: make this work
                 URL u = new URL(tempURL);
                 con = (HttpURLConnection) u.openConnection();
 

@@ -3,18 +3,12 @@ package integratedproject.unilife_v1;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner ;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements onTaskCompleted {
-    private String results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +16,7 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
         setContentView(R.layout.activity_login);
 
         Map map = new HashMap();
-
+        map.put("queryType", "getAllUsers");
         new Database(this).execute(map);
     }
 
@@ -31,6 +25,5 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
         tv.setText(result);
         Log.d("mainResults", result);
     }
-
 
 }
