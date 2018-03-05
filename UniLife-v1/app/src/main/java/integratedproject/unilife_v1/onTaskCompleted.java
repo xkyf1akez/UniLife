@@ -1,5 +1,7 @@
 package integratedproject.unilife_v1;
 
+import org.json.JSONException;
+
 /**
  * Created by Kieran Brown on 3/4/2018.
  * Description: Interface that must be implemented by any activities wanting to
@@ -11,5 +13,5 @@ package integratedproject.unilife_v1;
 
 //TODO: Make work with JSON object(s) instead
 public interface onTaskCompleted {
-    void onTaskCompleted(String result);
+    void onTaskCompleted(String result) throws JSONException;
 }

@@ -51,7 +51,7 @@ public class Database extends AsyncTask<Map, Void, String>{
             }
 
             br.close();
-            toJSON(sb.toString());
+
             return sb.toString();
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
@@ -69,16 +69,10 @@ public class Database extends AsyncTask<Map, Void, String>{
         return null;
     }
 
-    protected void toJSON(String json) {
-        try {
-            Log.d("JSON Success", new JSONObject(json).getJSONArray("results").getString(0).getString("username"));
-        } catch(JSONException e) {
-
-        }
-    }
-
     @Override
-    protected void onPostExecute(String result) {
-        listener.onTaskCompleted(result);
+    protected void onPostExecute(String result){
+        try {
+            listener.onTaskCompleted(result);
+        } catch (JSONException e) { }
     }
 }
