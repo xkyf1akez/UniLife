@@ -27,7 +27,11 @@ public class JSONParser{
         return json.getJSONArray("results");
     }
 
-    public JSONArray getSpecificResults(int i) throws JSONException {
-        return json.getJSONArray("results").getJSONArray(i);
+    public int NumOfResults() throws JSONException {
+        return getResults().length();
+    }
+
+    public String getString(int index, String name) throws JSONException {
+        return new JSONObject(getResults().getString(index)).getString(name);
     }
 }
