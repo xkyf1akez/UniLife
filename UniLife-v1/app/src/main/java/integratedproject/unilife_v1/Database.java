@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -35,9 +36,16 @@ public class Database extends AsyncTask<Map, Void, String>{
     @Override
     protected String doInBackground(Map... values) {
         HttpURLConnection con = null;
-        String tempURL = requestURL + values[0].get("queryType");
+        Iterator i = values[0].entrySet().iterator();
+        StringBuilder url = new StringBuilder(requestURL);
+
+        while(i.hasNext()) {
+            Map.Entry me = (Map.Entry)i.next();
+            url.append("&" + me.getKey() + "=" + me.getValue());
+        }
+
         try {
-            URL u = new URL(tempURL);
+            URL u = new URL(url.toString());
             con = (HttpURLConnection) u.openConnection();
 
             con.connect();

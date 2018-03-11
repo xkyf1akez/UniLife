@@ -28,13 +28,11 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
         TextView tv = (TextView) findViewById(R.id.Title);
 
         results = new JSONParser(result);
-
-        tv.setText(result);
         Log.d("mainResults", result);
         Log.d("test", "test");
         Log.d("json string test", results.getMessage());
         Log.d("JSON Array test", results.getString(0, "userName"));
-        Log.d("array numbers", results.NumOfResults() + ".");
+        Log.d("array numbers", results.numOfResults() + ".");
         //TODO: make it not think each inner array is a string. Needs to be converted to JSONArray then back or some shit
     }
 

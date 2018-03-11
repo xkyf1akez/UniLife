@@ -15,22 +15,27 @@ public class JSONParser{
         json = new JSONObject(results);
     }
 
+    //returns if the query was successful or not
     public boolean getSuccess() throws JSONException{
         return json.getInt("success") == 1;
     }
 
+    //returns the success/error message
     public String getMessage() throws JSONException {
         return json.getString("message");
     }
 
-    public JSONArray getResults() throws JSONException {
+    //returns all results as a string (ignore)
+    private JSONArray getResults() throws JSONException {
         return json.getJSONArray("results");
     }
 
-    public int NumOfResults() throws JSONException {
+    //returns number of results for iteration
+    public int numOfResults() throws JSONException {
         return getResults().length();
     }
 
+    //returns a specific value at a given index
     public String getString(int index, String name) throws JSONException {
         return new JSONObject(getResults().getString(index)).getString(name);
     }
