@@ -77,7 +77,6 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
         Log.d("json string test", results.getMessage());
         Log.d("JSON Array test", results.getString(0, "userName"));
         Log.d("array numbers", results.numOfResults() + ".");
-        //TODO: make it not think each inner array is a string. Needs to be converted to JSONArray then back or some shit
     }
 
 }
