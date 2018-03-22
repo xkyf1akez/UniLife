@@ -45,6 +45,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
                     }
                 }
                 //password confirmation
+                //TODO: more thorough validation on inputted text
                 if (values[1] != values[2]) {
                     validInputs = false;
                 }
@@ -57,6 +58,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
                     map.put("department", values[5]);
                     dbThread.execute(map);
                 }
+                //TODO: print that not all input was valid
             }
         });
     }
@@ -72,11 +74,12 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
         TextView tv = (TextView) findViewById(R.id.Title);
 
         results = new JSONParser(result);
-        Log.d("mainResults", result);
-        Log.d("test", "test");
-        Log.d("json string test", results.getMessage());
-        Log.d("JSON Array test", results.getString(0, "userName"));
-        Log.d("array numbers", results.numOfResults() + ".");
+        if(results.getSuccess()) {
+            //PRINT SUCCESS
+            //GO BACK TO HOME PAGE
+        } else {
+            //PRINT results.getMessage()
+        }
     }
 
 }
