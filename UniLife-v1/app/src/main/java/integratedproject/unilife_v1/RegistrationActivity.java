@@ -1,6 +1,7 @@
 
 package integratedproject.unilife_v1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,7 +77,8 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
         results = new JSONParser(result);
         if(results.getSuccess()) {
             //PRINT SUCCESS
-            //GO BACK TO HOME PAGE
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         } else {
             //PRINT results.getMessage()
         }
