@@ -76,11 +76,13 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
 
         results = new JSONParser(result);
         if(results.getSuccess()) {
-            //PRINT SUCCESS
+            Toast success = Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT);
+            success.show();
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         } else {
-            //PRINT results.getMessage()
+            Toast errorMessage = Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT);
+            errorMessage.show();
         }
     }
 
