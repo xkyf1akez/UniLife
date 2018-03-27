@@ -31,13 +31,13 @@
             android:text="University Email" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
             android:hint="e.g., jln23@bath.ac.uk"
-            android:inputType="textPersonName" />
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/textView3"
@@ -46,7 +46,7 @@
             android:text="Password" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
@@ -61,7 +61,7 @@
             android:text="Confirm Password" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
@@ -76,34 +76,34 @@
             android:text="Personal Details" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/firstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
             android:hint="first name"
-            android:inputType="textPassword" />
+            android:inputType="text" />
 
         <EditText
-            android:id="@+id/editText6"
+            android:id="@+id/surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
             android:hint="surname"
-            android:inputType="textPassword" />
+            android:inputType="text" />
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/department"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
             android:hint="department"
-            android:inputType="textPassword" />
+            android:inputType="text" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/tcCheckbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="I accept the Terms of Service and Privacy Policy" />
@@ -114,18 +114,18 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/registerButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Register" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="Go back" />
         </LinearLayout>
 
     </LinearLayout>

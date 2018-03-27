@@ -7,72 +7,101 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 public class RegistrationActivity extends AppCompatActivity implements onTaskCompleted {
     private JSONParser results;
     private Button register;
+    private Button login;
     private TextView getValue;
+    private Database dbThread = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup );
-        register = (Button)findViewById(R.id.button4);
-        Database dbThread = new Database(this);
+        setContentView(R.layout.signup);
+        register = (Button)findViewById(R.id.registerButton);
+        login = (Button)findViewById(R.id.loginButton);
 
-        //sets up listener for button
+        //returns user to previous page
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(v.getContext(), LoginActivity.class);
+                startActivity(in);
+            }
+        });
+
+        //sets up listener for registering
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             //extracts values from textboxes and puts them through hash map with their appropriate key
             //before passing it to the database thread
             public void onClick(View v) {
                 Boolean validInputs = true;
-                //                {userName, password, confirmation, firstname, surname, department}
-                String[] values = { getDetails(R.id.editText5) , getDetails(R.id.editText8) , getDetails(R.id.editText2),
-                        getDetails(R.id.editText4) , getDetails(R.id.editText6) , getDetails(R.id.editText7) };
+                String error = "";
+
+                String[] values = { getDetails(R.id.emailField) , getDetails(R.id.password) , getDetails(R.id.confirmPassword),
+                        getDetails(R.id.firstName) , getDetails(R.id.surname) , getDetails(R.id.department) };
+
                 //ensures all user inputs are valid
-                for (int x; x < 6; x++){
+                for (int x = 0; x < values.length; x++){
                     if(values[x] == null || values[x].isEmpty()) {
                         validInputs = false;
-                        x = 6;
+                        x = values.length;
+                        error = "please fill in all fields";
                     }
                 }
                 //password confirmation
                 //TODO: more thorough validation on inputted text
-                if (values[1] != values[2]) {
+                if (!values[1].equals(values[2])) {
                     validInputs = false;
+                    error = "Passwords are not equal";
                 }
-                if (validInputs == true) {
+
+                CheckBox tc = (CheckBox) findViewById(R.id.tcCheckbox);
+
+                /*
+                if(!tc.isChecked()) {
+                    validInputs = false;
+                    error = "Please agree to the terms and conditions";
+                }
+                */
+
+                if (validInputs) {
                     Map map = new HashMap();
-                    map.put("userName", values[0]);
+                    map.put("queryType", "insertUser");
+                    map.put("username", values[0]);
                     map.put("password", values[1]);
                     map.put("firstName", values[3]);
                     map.put("surname", values[4]);
                     map.put("department", values[5]);
+
+                    //TODO: Work out why password isn't getting saved
                     dbThread.execute(map);
+                } else {
+                    Toast failure = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT);
+                    failure.show();
                 }
-                //TODO: print that not all input was valid
             }
         });
     }
 
     //gets user input from appropriate textbox
-    public String getDetails(int inputID){
+    private String getDetails(int inputID){
         getValue = (TextView)findViewById(inputID);
-        String value = getValue.getText().toString();
-        return value;
+        return getValue.getText().toString();
     }
 
     public void onTaskCompleted(String result) throws JSONException{
-        TextView tv = (TextView) findViewById(R.id.Title);
 
         results = new JSONParser(result);
         if(results.getSuccess()) {

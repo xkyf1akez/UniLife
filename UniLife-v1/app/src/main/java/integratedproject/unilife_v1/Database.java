@@ -25,7 +25,7 @@ import java.util.Map;
 // TODO: Convert to JSON object(s)
 
 public class Database extends AsyncTask<Map, Void, String>{
-    private final String requestURL = "http://unilife.kieranbrown.me/?query=";
+    private final String requestURL = "http://unilife.kieranbrown.me/?";
     private onTaskCompleted listener;
 
     //Takes in the calling object so it can pass back results
@@ -43,6 +43,8 @@ public class Database extends AsyncTask<Map, Void, String>{
             Map.Entry me = (Map.Entry)i.next();
             url.append("&" + me.getKey() + "=" + me.getValue());
         }
+
+        Log.d("query", url.toString());
 
         try {
             URL u = new URL(url.toString());
