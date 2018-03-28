@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
     private Button login;
     private TextView username;
     private TextView password;
+    private Map fields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +48,12 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
                 }
 
                 if(validInput) {
-                    Map map = new HashMap();
-                    map.put("queryType", "login");
-                    map.put("username", values[0]);
-                    map.put("password", values[1]);
+                    fields = new HashMap();
+                    fields.put("queryType", "login");
+                    fields.put("username", values[0]);
+                    fields.put("password", values[1]);
 
-                    new Database(LoginActivity.this).execute(map);
+                    new Database(LoginActivity.this).execute(fields);
                 } else {
                     Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
@@ -62,8 +63,7 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(v.getContext(), RegistrationActivity.class);
-                startActivity(in);
+                startActivity(new Intent(v.getContext(), RegistrationActivity.class));
             }
         });
     }
@@ -73,15 +73,24 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
     }
 
     public void onTaskCompleted(String result) throws JSONException{
-
         results = new JSONParser(result);
         if(results.getSuccess()) {
+            Log.d("results", result);
             Toast.makeText(getApplicationContext(), "Successfully logged in", Toast.LENGTH_SHORT).show();
-            //Intent intent = new Intent(this, mainscreen.class);
-            //startActivity(intent);
+            createUser(results);
+            startActivity(new Intent(this, MainScreenActivity.class));
         } else {
             Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void createUser(JSONParser results) throws JSONException{
+        User.setUsername(results.getString(0, "username"));
+        User.setFirstName(results.getString(0, "firstName"));
+        User.setSurname(results.getString(0, "surname"));
+        User.setDepartment(results.getString(0, "department"));
+        User.setPrivacyLevel(results.getInt(0, "privacyLevel"));
+        User.setColorScheme(results.getInt(0, "colorScheme"));
+        User.logIn();
+    }
 }

@@ -26,8 +26,8 @@ public class JSONParser{
     }
 
     //returns all results as a string (ignore)
-    private JSONArray getResults() throws JSONException {
-        return json.getJSONArray("results");
+    public JSONArray getResults() throws JSONException {
+            return json.getJSONArray("results");
     }
 
     //returns number of results for iteration
@@ -35,8 +35,14 @@ public class JSONParser{
         return getResults().length();
     }
 
-    //returns a specific value at a given index
+    //returns a specific string at a given index
     public String getString(int index, String name) throws JSONException {
-        return new JSONObject(getResults().getString(index)).getString(name);
+        return getResults().getJSONObject(index).getString(name);
+    }
+
+    //returns a specific int at a given index
+    public int getInt(int index, String name) throws JSONException {
+        return Integer.parseInt(getResults().getJSONObject(index).getString(name));
+        //TODO: WHY DOES THIS CRASH??
     }
 }

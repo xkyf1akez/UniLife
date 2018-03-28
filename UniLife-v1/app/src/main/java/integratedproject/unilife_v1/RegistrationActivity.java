@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,6 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
     private JSONParser results;
     private Button register;
     private Button login;
-    //private Database dbThread = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(v.getContext(), LoginActivity.class);
-                startActivity(in);
+                startActivity(new Intent(v.getContext(), LoginActivity.class));
             }
         });
 
@@ -100,13 +97,10 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
 
         results = new JSONParser(result);
         if(results.getSuccess()) {
-            Toast success = Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT);
-            success.show();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, LoginActivity.class));
         } else {
-            Toast errorMessage = Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT);
-            errorMessage.show();
+            Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
