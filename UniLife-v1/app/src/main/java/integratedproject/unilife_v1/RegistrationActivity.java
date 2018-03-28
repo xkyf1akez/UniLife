@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,8 +21,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
     private JSONParser results;
     private Button register;
     private Button login;
-    private TextView getValue;
-    private Database dbThread = new Database(this);
+    //private Database dbThread = new Database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +68,10 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
 
                 CheckBox tc = (CheckBox) findViewById(R.id.tcCheckbox);
 
-                /*
                 if(!tc.isChecked()) {
                     validInputs = false;
                     error = "Please agree to the terms and conditions";
                 }
-                */
 
                 if (validInputs) {
                     Map map = new HashMap();
@@ -85,11 +82,9 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
                     map.put("surname", values[4]);
                     map.put("department", values[5]);
 
-                    //TODO: Work out why password isn't getting saved
-                    dbThread.execute(map);
+                    new Database(RegistrationActivity.this).execute(map);
                 } else {
-                    Toast failure = Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT);
-                    failure.show();
+                    Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -97,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
 
     //gets user input from appropriate textbox
     private String getDetails(int inputID){
-        getValue = (TextView)findViewById(inputID);
+        TextView getValue = (TextView)findViewById(inputID);
         return getValue.getText().toString();
     }
 
