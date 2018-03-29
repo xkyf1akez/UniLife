@@ -2,6 +2,7 @@ package integratedproject.unilife_v1;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -23,6 +24,6 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
 
     public void onTaskCompleted(String result) throws JSONException {
         JSONParser results = new JSONParser(result);
-        Toast.makeText(getApplicationContext(), results.getInt(6, "privacyLevel"), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), Integer.toString(results.getInt(0, "privacyLevel")), Toast.LENGTH_SHORT).show();
     }
 }

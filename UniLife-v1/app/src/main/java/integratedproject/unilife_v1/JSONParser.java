@@ -1,5 +1,7 @@
 package integratedproject.unilife_v1;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,9 +42,17 @@ public class JSONParser{
         return getResults().getJSONObject(index).getString(name);
     }
 
+    public String objectToString(int index) throws JSONException {
+        return getResults().getJSONObject(index).toString();
+    }
+
     //returns a specific int at a given index
     public int getInt(int index, String name) throws JSONException {
-        return Integer.parseInt(getResults().getJSONObject(index).getString(name));
-        //TODO: WHY DOES THIS CRASH??
+        try {
+            return getResults().getJSONObject(index).getInt(name);
+        } catch(NumberFormatException e) {
+            Log.d("number format", "Exception", e);
+            return 0;
+        }
     }
 }
