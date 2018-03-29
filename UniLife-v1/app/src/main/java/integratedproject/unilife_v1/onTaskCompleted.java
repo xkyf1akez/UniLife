@@ -11,7 +11,6 @@ import org.json.JSONException;
  * function will provide the results
  */
 
-//TODO: Make work with JSON object(s) instead
 public interface onTaskCompleted {
     void onTaskCompleted(String result) throws JSONException;
 }
