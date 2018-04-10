@@ -27,6 +27,10 @@ public class JSONParser{
         return json.getString("message");
     }
 
+    public String getQueryType() throws JSONException {
+        return json.getString("queryType");
+    }
+
     //returns all results as a string (ignore)
     public JSONArray getResults() throws JSONException {
             return json.getJSONArray("results");

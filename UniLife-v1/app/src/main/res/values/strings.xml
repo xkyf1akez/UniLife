@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">UniLife-v1</string>
 
-    <string-array name="spinnerValues">
-        <item> 1 </item>
-        <item> 2 </item>
-        <item> 3 </item>
-        <item> 4 </item>
-        <item> 5 </item>
+    <string-array name="departments">
+        <item>Computer Science</item>
+        <item>Architecture</item>
+        <item>Chemistry</item>
+        <item>Biology</item>
+    </string-array>
+    <string-array name="eventCategories">
+        <item>Social</item>
+        <item>Academic</item>
+        <item>Personal</item>
     </string-array>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_main_screen">MainScreenActivity</string>

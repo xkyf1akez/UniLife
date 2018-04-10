@@ -28,15 +28,15 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="University Email" />
+            android:text="University username" />
 
         <EditText
-            android:id="@+id/emailField"
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffffff"
             android:ems="10"
-            android:hint="e.g., jln23@bath.ac.uk"
+            android:hint="e.g., jln23"
             android:inputType="textEmailAddress" />
 
         <TextView
@@ -93,14 +93,11 @@
             android:hint="surname"
             android:inputType="text" />
 
-        <EditText
+        <Spinner
             android:id="@+id/department"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:ems="10"
-            android:hint="department"
-            android:inputType="text" />
+            android:entries="@array/departments" />
 
         <CheckBox
             android:id="@+id/tcCheckbox"

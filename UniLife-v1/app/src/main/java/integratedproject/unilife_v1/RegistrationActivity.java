@@ -8,10 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,13 +22,26 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
     private JSONParser results;
     private Button register;
     private Button login;
+    private TextView username;
+    private TextView password;
+    private TextView confirmPassword;
+    private TextView firstName;
+    private TextView surname;
+    private Spinner department;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+
         register = (Button)findViewById(R.id.registerButton);
         login = (Button)findViewById(R.id.loginButton);
+        username = (TextView)findViewById(R.id.username);
+        password = (TextView)findViewById(R.id.password);
+        confirmPassword = (TextView)findViewById(R.id.confirmPassword);
+        firstName = (TextView)findViewById(R.id.firstName);
+        surname = (TextView)findViewById(R.id.surname);
+        department = (Spinner)findViewById(R.id.department);
 
         //returns user to previous page
         login.setOnClickListener(new View.OnClickListener() {
@@ -45,15 +60,20 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
                 Boolean validInputs = true;
                 String error = "";
 
-                String[] values = { getDetails(R.id.emailField) , getDetails(R.id.password) , getDetails(R.id.confirmPassword),
-                        getDetails(R.id.firstName) , getDetails(R.id.surname) , getDetails(R.id.department) };
+                String[] values = { getDetails(username),
+                        getDetails(password),
+                        getDetails(confirmPassword),
+                        getDetails(firstName),
+                        getDetails(surname),
+                        department.getSelectedItem().toString()
+                };
 
                 //ensures all user inputs are valid
                 for (int x = 0; x < values.length; x++){
                     if(values[x] == null || values[x].isEmpty()) {
                         validInputs = false;
                         x = values.length;
-                        error = "please fill in all fields";
+                        error = "Please fill in all fields";
                     }
                 }
                 //password confirmation
@@ -88,9 +108,8 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
     }
 
     //gets user input from appropriate textbox
-    private String getDetails(int inputID){
-        TextView getValue = (TextView)findViewById(inputID);
-        return getValue.getText().toString();
+    private String getDetails(TextView tv){
+        return tv.getText().toString();
     }
 
     public void onTaskCompleted(String result) throws JSONException{

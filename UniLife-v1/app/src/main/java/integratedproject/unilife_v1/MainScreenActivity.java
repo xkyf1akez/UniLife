@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainScreenActivity extends AppCompatActivity implements onTaskCompleted{
     private ImageButton ib;
 
@@ -33,6 +30,5 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
 
     public void onTaskCompleted(String result) throws JSONException {
         JSONParser results = new JSONParser(result);
-        //Toast.makeText(getApplicationContext(), Integer.toString(results.getInt(0, "privacyLevel")), Toast.LENGTH_SHORT).show();
     }
 }

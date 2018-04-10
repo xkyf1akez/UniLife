@@ -42,8 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Title" />
+                android:hint="Title"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/eventCategory"
@@ -52,9 +52,10 @@
                 android:text="Event Category" />
 
             <Spinner
-                android:id="@+id/EventCategorySpinner"
+                android:id="@+id/eventCategorySpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:entries="@array/eventCategories" />
 
             <LinearLayout
                 android:id="@+id/AllDay"
@@ -92,17 +93,21 @@
                     android:text="Start" />
 
                 <EditText
-                    android:id="@+id/time"
+                    android:id="@+id/startTimeTrigger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:focusable="false"
+                    android:selectAllOnFocus="false"
+                    android:singleLine="false" />
 
                 <EditText
-                    android:id="@+id/date"
+                    android:id="@+id/startDateTrigger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="date" />
@@ -123,38 +128,38 @@
                     android:text="End" />
 
                 <EditText
-                    android:id="@+id/time2"
+                    android:id="@+id/endTimeTrigger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:focusable="false"
                     android:ems="10"
                     android:inputType="time" />
 
                 <EditText
-                    android:id="@+id/date2"
+                    android:id="@+id/endDateTrigger"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:focusable="false"
                     android:ems="10"
                     android:inputType="date" />
 
             </LinearLayout>
 
             <EditText
-                android:id="@+id/Location"
+                android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
-                tools:text="Location" />
+                android:hint="Location"
+                android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/editText15"
+            <Button
+                android:id="@+id/save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                tools:text="Invited Friends..." />
+                android:text="save" />
 
         </LinearLayout>
     </LinearLayout>
