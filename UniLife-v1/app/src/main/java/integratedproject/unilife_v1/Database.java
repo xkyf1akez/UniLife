@@ -21,7 +21,6 @@ import java.util.Map;
 /**
  * Created by Kieran Brown on 3/4/2018.
  */
-// TODO: Tidy this class up
 
 public class Database extends AsyncTask<Map, Void, String>{
     private final String requestURL = "http://unilife.kieranbrown.me/?";
