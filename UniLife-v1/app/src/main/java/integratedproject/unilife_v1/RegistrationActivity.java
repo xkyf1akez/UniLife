@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;

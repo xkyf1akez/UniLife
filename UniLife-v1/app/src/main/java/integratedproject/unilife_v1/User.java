@@ -1,7 +1,5 @@
 package integratedproject.unilife_v1;
 
-import org.json.JSONException;
-
 /**
  * Created by Kieran Brown on 3/28/2018.
  */
@@ -13,19 +11,8 @@ public class User{
     private static String department;
     private static int privacyLevel;
     private static int colorScheme;
+    private static int notificationLevel;
     private static boolean loggedIn;
-
-    /*
-    public static void createUser(JSONParser results) throws JSONException{
-        setUsername(results.getString(0, "username"));
-        setFirstName(results.getString(0, "firstName"));
-        setSurname(results.getString(0, "surname"));
-        setDepartment(results.getString(0, "department"));
-        setPrivacyLevel(results.getInt(0, "privacyLevel"));
-        setColorScheme(results.getInt(0, "colorScheme"));
-        logIn();
-    }
-    */
 
     public static void setUsername(String un) {
         username = un;
@@ -84,6 +71,25 @@ public class User{
     }
 
     public static void logOut() {
+        loggedIn = false;
+    }
+
+    public static void setNotificationLevel(int n1) {
+        notificationLevel = n1;
+    }
+
+    public static int getNotificationLevel() {
+        return notificationLevel;
+    }
+
+    public static void delete() {
+        username = null;
+        firstName = null;
+        surname = null;
+        department = null;
+        privacyLevel = 0;
+        colorScheme = 0;
+        notificationLevel = 0;
         loggedIn = false;
     }
 }

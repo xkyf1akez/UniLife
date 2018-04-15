@@ -11,21 +11,33 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 public class MainScreenActivity extends AppCompatActivity implements onTaskCompleted{
-    private ImageButton ib;
+    private ImageButton settings;
+    private ImageButton today;
+    private ImageButton calender;
+    private ImageButton friends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!User.isLoggedIn()) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
 
-        ib = (ImageButton)findViewById(R.id.imageButton);
+        settings = (ImageButton)findViewById(R.id.settings);
+        today = (ImageButton)findViewById(R.id.todayEvents);
+        calender = (ImageButton)findViewById(R.id.calender);
+        friends = (ImageButton)findViewById(R.id.friends);
 
-        ib.setOnClickListener(new View.OnClickListener() {
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), newEventActivity.class));
+                startActivity(new Intent(v.getContext(), settingsActivity.class));
             }
         });
+
+
     }
 
     public void onTaskCompleted(String result) throws JSONException {

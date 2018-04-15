@@ -12,8 +12,14 @@
         <item>Academic</item>
         <item>Personal</item>
     </string-array>
+    <string-array name="languages">
+        <item>English</item>
+        <item>French</item>
+        <item>German</item>
+    </string-array>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_main_screen">MainScreenActivity</string>
     <string name="title_activity_new_event">newEventActivity</string>
+    <string name="title_activity_settings">settingsActivity</string>
 
 </resources>

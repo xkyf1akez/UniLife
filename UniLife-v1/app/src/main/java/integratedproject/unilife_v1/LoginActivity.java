@@ -25,6 +25,10 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!User.isLoggedIn()) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -85,12 +89,13 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
     }
 
     private void createUser(JSONParser results) throws JSONException{
+        User.logIn();
         User.setUsername(results.getString(0, "username"));
         User.setFirstName(results.getString(0, "firstName"));
         User.setSurname(results.getString(0, "surname"));
         User.setDepartment(results.getString(0, "department"));
         User.setPrivacyLevel(results.getInt(0, "privacyLevel"));
+        User.setNotificationLevel(results.getInt(0, "notificationLevel"));
         User.setColorScheme(results.getInt(0, "colorScheme"));
-        User.logIn();
     }
 }
