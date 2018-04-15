@@ -17,7 +17,7 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchFriends Activity extends AppCompatActivity implements onTaskCompleted {
+public class SearchFriendsActivity extends AppCompatActivity implements onTaskCompleted {
     private JSONParser results;
     private TextView search;
 
