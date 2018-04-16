@@ -24,6 +24,7 @@ import java.util.Map;
 public class SearchFriendsActivity extends AppCompatActivity implements onTaskCompleted {
     private JSONParser results;
     private TextView search;
+    private ListView friendsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +32,10 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
         setContentView(R.layout.SearchFriends); //TO DO: page name unknown atm
 
         search = (TextView)findViewById(R.id.search); //TO DO: id unknown atm
-        friendsList = (RecyclerView)findViewById(R.id.friendsList); //TO DO: id unknown atm
-         
+        friendsList = (ListView)findViewById(R.id.friendsList); //TO DO: id unknown atm
+        friendsListAdapter = new MyAdapter();
+        friendsList.setAdapter(friendsListAdapter);
+        
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -68,6 +71,8 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
         for (int x = 0; x<numResults; x++){
             resultsList[x] = results.getString(x, result)
         }
+        friendsListAdapter = new MyAdapter();
+        friendsList.setAdapter(friendsListAdapter);
         
         if(results.getSuccess()) {
             Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
