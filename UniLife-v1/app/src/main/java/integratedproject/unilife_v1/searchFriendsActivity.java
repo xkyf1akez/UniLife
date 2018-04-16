@@ -10,6 +10,8 @@ private RecyclerView friendsList;
 private RecyclerView.Adapter friendsListAdapter;
 private RecyclerView.LayoutManager friendsListLayout;
 
+import android.widget.ArrayAdapter;  
+import android.widget.ListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -25,6 +27,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
     private JSONParser results;
     private TextView search;
     private ListView friendsList;
+    private ArrayAdapter<String> listAdapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +53,6 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
           }
         });
         
-        //TO DO: set up listener for friend request
-
-            public void onClick(View v) {
-              Toast.makeText(getApplicationContext(), "Friend Request Sent", Toast.LENGTH_SHORT).show();
-            }
         });
     }
 
@@ -64,15 +62,17 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
     }
 
     public void onTaskCompleted(String result) throws JSONException{
-        //TO DO: display results
         results = new JSONParser(result);
         int numResults = results.numOfResults();
         String[] resultsList = new String [numResults];
         for (int x = 0; x<numResults; x++){
             resultsList[x] = results.getString(x, result)
         }
-        friendsListAdapter = new MyAdapter();
-        friendsList.setAdapter(friendsListAdapter);
+        //TO DO: display results
+        //TO DO: pass items to list view, add friend on click
+        @Override
+        public void onListItemClick(ListView l, View v, int position, long id) {
+        }
         
         if(results.getSuccess()) {
             Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
