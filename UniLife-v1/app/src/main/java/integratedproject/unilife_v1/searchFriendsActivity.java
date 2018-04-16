@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+private RecyclerView friendsList;
+private RecyclerView.Adapter friendsListAdapter;
+private RecyclerView.LayoutManager friendsListLayout;
+
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
@@ -27,6 +31,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
         setContentView(R.layout.SearchFriends); //TO DO: page name unknown atm
 
         search = (TextView)findViewById(R.id.search); //TO DO: id unknown atm
+        friendsList = (RecyclerView)findViewById(R.id.friendsList); //TO DO: id unknown atm
          
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -38,7 +43,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
                 Map map = new HashMap();
                 map.put("queryType", "getUsers");
                 map.put("searchQuery", getDetails(search));
-                //TO DO: display results
+                new Database(SearchFriendsActivity.this).execute(map);
           }
         });
         
@@ -56,8 +61,14 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
     }
 
     public void onTaskCompleted(String result) throws JSONException{
-
+        //TO DO: display results
         results = new JSONParser(result);
+        int numResults = results.numOfResults();
+        String[] resultsList = new String [numResults];
+        for (int x = 0; x<numResults; x++){
+            resultsList[x] = results.getString(x, result)
+        }
+        
         if(results.getSuccess()) {
             Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, LoginActivity.class));
