@@ -1,4 +1,4 @@
-//copied from https://developer.android.com/guide/topics/ui/layout/recyclerview.html#java
+//copied from https://developer.android.com/reference/android/widget/ListView.html#ListView(android.content.Context,%20android.util.AttributeSet)
 package integratedproject.unilife_v1;
 
 import android.content.Intent;
