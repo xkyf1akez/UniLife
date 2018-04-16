@@ -27,7 +27,6 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
     private JSONParser results;
     private TextView search;
     private ListView friendsList;
-    private ArrayAdapter<String> listAdapter ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
 
         search = (TextView)findViewById(R.id.search); //TO DO: id unknown atm
         friendsList = (ListView)findViewById(R.id.friendsList); //TO DO: id unknown atm
-        friendsListAdapter = new MyAdapter();
+        friendsListAdapter = new MyAdapter(); //TO DO: maybe use better adapter? just copied one from android, unsure if its suitable for this
         friendsList.setAdapter(friendsListAdapter);
         
         search.addTextChangedListener(new TextWatcher() {
@@ -68,10 +67,15 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
         for (int x = 0; x<numResults; x++){
             resultsList[x] = results.getString(x, result)
         }
-        //TO DO: display results
-        //TO DO: pass items to list view, add friend on click
+        //TO DO: display results in the listview
+        //TO DO: add listener to the list view itself
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
+                Map map = new HashMap();
+                map.put("queryType", "requestFriend");
+                map.put("username", User.getUsername()); //TO DO: check whether this gets the current user's name
+                map.put("Friend", resultsList[position]); //TO DO: check whether this returns passes just username, or additional details
+                new Database(SearchFriendsActivity.this).execute(map);
         }
         
         if(results.getSuccess()) {
