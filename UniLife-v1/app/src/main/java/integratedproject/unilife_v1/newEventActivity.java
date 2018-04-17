@@ -30,6 +30,9 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
     private TextView endDateTrigger;
     private TextView location;
     private Button save;
+    private CheckBox repeatedEvent;
+    private TextView weeksToRepeat;
+
     private JSONParser results;
 
     private int startYear;
@@ -62,6 +65,8 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
         endDateTrigger = (TextView)findViewById(R.id.endDateTrigger);
         location = (TextView)findViewById(R.id.location);
         save = (Button)findViewById(R.id.save);
+        repeatedEvent = (CheckBox)findViewById(R.id.repeatedEvent);
+        weeksToRepeat = (TextView)findViewById(R.id.weeksToRepeat);
 
 
         startTimeTrigger.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +149,17 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
             }
         });
 
+        repeatedEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(repeatedEvent.isChecked()) {
+                    weeksToRepeat.setEnabled(true);
+                } else {
+                    weeksToRepeat.setEnabled(false);
+                }
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,6 +211,8 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                     map.put("location", values[6]);
                     map.put("createdBy", User.getUsername());
                     map.put("allDay", allDay.isChecked() ? 1 : 0);
+                    map.put("repeatedEvent", repeatedEvent.isChecked() ? 1 : 0);
+                    map.put("weeksToRepeat", getValue(weeksToRepeat));
 
                     new Database(newEventActivity.this).execute(map);
                 } else {

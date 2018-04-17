@@ -79,6 +79,36 @@
 
             </LinearLayout>
 
+            <CheckBox
+                android:id="@+id/repeatedEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="repeated Event?" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="141dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Weeks to repeat:" />
+
+                <EditText
+                    android:id="@+id/weeksToRepeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/Start"
                 android:layout_width="match_parent"

@@ -25,9 +25,6 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(!User.isLoggedIn()) {
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);

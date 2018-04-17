@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -15,6 +16,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
     private ImageButton today;
     private ImageButton calender;
     private ImageButton friends;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,19 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         today = (ImageButton)findViewById(R.id.todayEvents);
         calender = (ImageButton)findViewById(R.id.calender);
         friends = (ImageButton)findViewById(R.id.friends);
+        title = (TextView)findViewById(R.id.Title);
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), settingsActivity.class));
+            }
+        });
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), newEventActivity.class));
             }
         });
 
