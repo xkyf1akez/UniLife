@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".newEventActivity" />
         <activity android:name=".settingsActivity" />
+        <activity android:name=".CalendarActivity" />
     </application>
 
 </manifest>
