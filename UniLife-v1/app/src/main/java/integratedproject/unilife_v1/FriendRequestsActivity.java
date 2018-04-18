@@ -31,7 +31,7 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
         people = (ListView) findViewById(R.id.people);
         Map map = new HashMap();
         map.put("queryType", "getFriendRequests");
-        map.put("Username", User.getUsername()); //TO DO: get user's name
+        map.put("Username", User.getUsername()); 
         new Database(FriendRequestsActivity.this).execute(map);
     }
 
