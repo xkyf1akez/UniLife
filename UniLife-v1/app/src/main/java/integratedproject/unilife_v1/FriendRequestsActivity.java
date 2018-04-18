@@ -31,8 +31,8 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
         people = (ListView) findViewById(R.id.people);
         Map map = new HashMap();
         map.put("queryType", "getFriendRequests");
-        map.put("Username", "aName"); //TO DO: get user's name
-        new Database(SearchFriendsActivity.this).execute(map);
+        map.put("Username", User.getUsername()); //TO DO: get user's name
+        new Database(FriendRequestsActivity.this).execute(map);
     }
 
     public void onTaskCompleted(String result) throws JSONException{
