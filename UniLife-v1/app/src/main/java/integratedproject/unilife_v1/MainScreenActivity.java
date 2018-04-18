@@ -43,7 +43,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), newEventActivity.class));
+                startActivity(new Intent(v.getContext(), SearchFriendsActivity.class));
             }
         });
 

@@ -4,8 +4,11 @@ package integratedproject.unilife_v1;
  * Created by OllieLewis on 05/03/2018.
  */
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.util.Log;
@@ -30,6 +33,7 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
     private CalendarView mCalendarView;
     private JSONParser results;
     private ListView events;
+    private FloatingActionButton newEvent;
     private ArrayList<CalendarDataModel> dataModel;
     private static CalendarAdaptor calendarAdaptor;
 
@@ -39,6 +43,7 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         setContentView(R.layout.calendar_layout);
         mCalendarView = (CalendarView) findViewById(R.id.calendarView);
         events = (ListView)findViewById(R.id.events);
+        newEvent = (FloatingActionButton)findViewById(R.id.newEventFAB);
 
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
         DateFormat monthFormat = new SimpleDateFormat("MM");
@@ -53,6 +58,25 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
                 getEvents(year, month, day);
             }
         });
+
+        newEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CalendarActivity.this, newEventActivity.class));
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.calendar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     private void getEvents(int year, int month, int day) {

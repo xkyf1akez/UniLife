@@ -21,11 +21,13 @@
         <activity android:name=".RegistrationActivity" />
         <activity
             android:name=".MainScreenActivity"
-            android:label="@string/title_activity_main_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="Home" />
         <activity android:name=".newEventActivity" />
         <activity android:name=".settingsActivity" />
         <activity android:name=".CalendarActivity" />
+        <activity
+            android:name=".SearchFriendsActivity"
+            android:label="Add Friends" />
     </application>
 
 </manifest>
