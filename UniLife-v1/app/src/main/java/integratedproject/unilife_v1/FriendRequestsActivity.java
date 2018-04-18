@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchFriendsActivity extends AppCompatActivity implements onTaskCompleted{
+public class FriendRequestsActivity extends AppCompatActivity implements onTaskCompleted{
     private JSONParser results;
     private ListView people;
     private ArrayList<SearchDataModel> dataModel;
