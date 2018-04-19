@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -13,9 +16,10 @@ import java.util.ArrayList;
  * Created by Kieran Brown on 4/18/2018.
  */
 
-public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View.OnClickListener {
+public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View.OnClickListener, onTaskCompleted {
     private ArrayList<SearchDataModel> dataSet;
     private Context context;
+    private JSONParser results;
 
     private static class ViewHolder {
         TextView username;
@@ -63,4 +67,9 @@ public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View
 
         return convertView;
     }
+
+    public void onTaskCompleted(String result) throws JSONException {
+        results = new JSONParser(result);
+    }
+
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
         setContentView(R.layout.search_friends);
         search = (TextView)findViewById(R.id.searchBox);
         people = (ListView) findViewById(R.id.people);
+        dataModel = new ArrayList<>();
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -53,20 +55,46 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
                 }
             }
         });
+
+        searchAdapter = new SearchAdapter(dataModel, getApplicationContext());
+        people.setAdapter(searchAdapter);
+        people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SearchDataModel data = dataModel.get(position);
+
+                Map map = new HashMap();
+                map.put("queryType", "requestFriend");
+                map.put("username", User.getUsername());
+                map.put("friend", data.getUsername());
+                new Database(SearchFriendsActivity.this).execute(map);
+            }
+        });
     }
 
     public void onTaskCompleted(String result) throws JSONException{
         results = new JSONParser(result);
         dataModel = new ArrayList<>();
 
-        if(results.getSuccess()) {
-            for(int i = 0; i < results.numOfResults(); i++) {
-                dataModel.add(new SearchDataModel(results.getString(i, "username"), results.getString(i, "firstName") + " " + results.getString(i, "surname"), results.getString(i, "department")));
+        if(results.getQueryType().equals("getUsers")) {
+            if (results.getSuccess()) {
+                for (int i = 0; i < results.numOfResults(); i++) {
+                    dataModel.add(new SearchDataModel(results.getString(i, "username"), results.getString(i, "firstName") + " " + results.getString(i, "surname"), results.getString(i, "department")));
+                }
+                searchAdapter = new SearchAdapter(dataModel, getApplicationContext());
+                people.setAdapter(searchAdapter);
+
+            } else {
+                Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            searchAdapter = new SearchAdapter(dataModel, getApplicationContext());
-            people.setAdapter(searchAdapter);
+        } else if(results.getQueryType().equals("requestFriend")) {
+            if(results.getSuccess()) {
+                Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Server error. Please try again", Toast.LENGTH_SHORT).show();
         }
 
     }
