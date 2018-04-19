@@ -22,6 +22,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
     protected void onCreate(Bundle savedInstanceState) {
         if(!User.isLoggedIn()) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            //returns user to login page if not logged in
         }
 
         super.onCreate(savedInstanceState);
@@ -32,6 +33,13 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         calender = (ImageButton)findViewById(R.id.calender);
         friends = (ImageButton)findViewById(R.id.friends);
         title = (TextView)findViewById(R.id.Title);
+
+        friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), FriendRequestsActivity.class));
+            }
+        });
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override

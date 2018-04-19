@@ -48,12 +48,14 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
                     }
                 }
 
+                //checks all fields are filled
+
                 if(validInput) {
                     fields = new HashMap();
                     fields.put("queryType", "login");
                     fields.put("username", values[0]);
                     fields.put("password", values[1]);
-
+                    //calls database to check if username/password are correct
                     new Database(LoginActivity.this).execute(fields);
                 } else {
                     Toast.makeText(LoginActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();

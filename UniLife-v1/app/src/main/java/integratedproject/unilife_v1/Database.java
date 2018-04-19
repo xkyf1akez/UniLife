@@ -48,6 +48,7 @@ public class Database extends AsyncTask<Map, Void, String>{
             URL u = new URL(url.toString());
             con = (HttpURLConnection) u.openConnection();
 
+            //connects to server
             con.connect();
 
             BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -57,6 +58,7 @@ public class Database extends AsyncTask<Map, Void, String>{
             while ((line = br.readLine()) != null) {
                 sb.append(line + "\n");
             }
+            //builds results from server output
 
             br.close();
 
@@ -80,6 +82,7 @@ public class Database extends AsyncTask<Map, Void, String>{
     @Override
     protected void onPostExecute(String result){
         try {
+            //uses the callback function to send results to the calling function
             listener.onTaskCompleted(result);
         } catch (JSONException e) { }
     }

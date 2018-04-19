@@ -9,6 +9,7 @@ public class SearchDataModel {
     private String name;
     private String department;
 
+    //holds data for each item in a list
     public SearchDataModel(String username, String name, String department) {
         this.username = username;
         this.name = name;

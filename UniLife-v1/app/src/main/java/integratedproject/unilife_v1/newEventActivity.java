@@ -68,7 +68,10 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
         repeatedEvent = (CheckBox)findViewById(R.id.repeatedEvent);
         weeksToRepeat = (TextView)findViewById(R.id.weeksToRepeat);
 
+        weeksToRepeat.setEnabled(false);
 
+
+        //gets time upon selection
         startTimeTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,6 +91,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
             }
         });
 
+        //gets time upon selection
         endTimeTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +111,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
             }
         });
 
+        //gets date upon selection
         startDateTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +133,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
             }
         });
 
+        //gets date upon selection
         endDateTrigger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +181,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                         getValue(endDateTrigger),
                         getValue(location)
                 };
+                //checks all fields are filled
 
                 for(int i = 0; i < values.length; i++) {
                     if(values[i] == null || values[i].isEmpty()) {
@@ -198,6 +205,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                         }
                     }
                 }
+                //checks that the end date / time are after the start
 
                 if(validInputs) {
                     Map map = new HashMap();
@@ -214,6 +222,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                     map.put("repeatedEvent", repeatedEvent.isChecked() ? 1 : 0);
                     map.put("weeksToRepeat", getValue(weeksToRepeat));
 
+                    //adds event to database
                     new Database(newEventActivity.this).execute(map);
                 } else {
                     Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
@@ -227,11 +236,11 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
     }
 
     public void onTaskCompleted(String result) throws JSONException{
+        //lets user know if it was successful or not and goes back to previous page if it was
         results = new JSONParser(result);
         if(results.getSuccess()) {
             Toast.makeText(getApplicationContext(), "Successfully registered event", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MainScreenActivity.class));
-            //need to change to whatever page allows you to make a new event
+            super.onBackPressed();
         } else {
             Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
         }

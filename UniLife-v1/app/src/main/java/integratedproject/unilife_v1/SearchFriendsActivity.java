@@ -47,6 +47,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //if something's been typed in the text box, get users with similar names
                 if(s.length() > 0) {
                     Map map = new HashMap();
                     map.put("queryType", "getUsers");
@@ -63,6 +64,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SearchDataModel data = dataModel.get(position);
 
+                //when an item is clicked on, try sending a friend request to that person
                 Map map = new HashMap();
                 map.put("queryType", "requestFriend");
                 map.put("username", User.getUsername());
@@ -78,6 +80,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
 
         if(results.getQueryType().equals("getUsers")) {
             if (results.getSuccess()) {
+                //if successfully got users, add them to the dataModel and display in the listView
                 for (int i = 0; i < results.numOfResults(); i++) {
                     dataModel.add(new SearchDataModel(results.getString(i, "username"), results.getString(i, "firstName") + " " + results.getString(i, "surname"), results.getString(i, "department")));
                 }
@@ -89,6 +92,7 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
             }
         } else if(results.getQueryType().equals("requestFriend")) {
             if(results.getSuccess()) {
+                //if successfully sent request, let the user know
                 Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();

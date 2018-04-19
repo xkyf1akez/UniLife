@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class CalendarAdaptor extends ArrayAdapter<CalendarDataModel> implements View.OnClickListener{
     private ArrayList<CalendarDataModel> dataSet;
     private Context context;
-    private int lastPosition = -1;
 
+    //internal class for the fields on the listView
     private static class ViewHolder {
         TextView textTitle;
         TextView textLocation;
@@ -47,6 +47,7 @@ public class CalendarAdaptor extends ArrayAdapter<CalendarDataModel> implements 
         final View result;
 
         if(convertView == null) {
+            //converts Views in the listView to an internal format for getting data upon click
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.calender_item, parent, false);
@@ -64,6 +65,7 @@ public class CalendarAdaptor extends ArrayAdapter<CalendarDataModel> implements 
             result = convertView;
         }
 
+        //sets details from the given item in the list
         viewHolder.textGoing.setText(dataModel.getAttending());
         viewHolder.textLocation.setText(dataModel.getLocation());
         viewHolder.textCategory.setText(dataModel.getCategory());

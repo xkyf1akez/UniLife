@@ -49,13 +49,16 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         DateFormat monthFormat = new SimpleDateFormat("MM");
         DateFormat dayFormat = new SimpleDateFormat("dd");
         Date date = Calendar.getInstance().getTime();
+        //gets current date
 
         getEvents(Integer.parseInt(yearFormat.format(date)), Integer.parseInt(monthFormat.format(date)) - 1, Integer.parseInt(dayFormat.format(date)));
+        //gets events for current date
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
                 getEvents(year, month, day);
+                //gets events for selected page
             }
         });
 
@@ -75,6 +78,7 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //runs code when menu item is selected
         Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
         return true;
     }
@@ -85,6 +89,7 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         map.put("queryType", "getEvents");
         map.put("username", User.getUsername());
         map.put("date", date);
+        //formats date and gets events on that day
         new Database(CalendarActivity.this).execute(map);
     }
 
@@ -93,6 +98,7 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         dataModel = new ArrayList<>();
         if(results.getSuccess()) {
             for (int i = 0; i < results.numOfResults(); i++) {
+                //adds all event details to a dataModel and displays it in the listView
                 dataModel.add(new CalendarDataModel(results.getString(i, "title"), results.getString(i, "startTime").substring(0,5) + " - " + results.getString(i, "endTime").substring(0,5), results.getString(i, "location"), results.getString(i, "category"), results.getString(i, "status")));
             }
             calendarAdaptor = new CalendarAdaptor(dataModel, getApplicationContext());

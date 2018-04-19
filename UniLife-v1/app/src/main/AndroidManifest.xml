@@ -28,6 +28,8 @@
         <activity
             android:name=".SearchFriendsActivity"
             android:label="Add Friends" />
+        <activity android:name=".FriendRequestsActivity"
+            android:label="Friend Requests" />
     </application>
 
 </manifest>

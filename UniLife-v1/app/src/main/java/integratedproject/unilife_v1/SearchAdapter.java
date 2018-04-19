@@ -16,17 +16,18 @@ import java.util.ArrayList;
  * Created by Kieran Brown on 4/18/2018.
  */
 
-public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View.OnClickListener, onTaskCompleted {
+public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View.OnClickListener {
     private ArrayList<SearchDataModel> dataSet;
     private Context context;
-    private JSONParser results;
 
+    //internal reference for the fields on the listView
     private static class ViewHolder {
         TextView username;
         TextView name;
         TextView department;
     }
 
+    //takes in the data to store in the model
     public SearchAdapter(ArrayList<SearchDataModel> data, Context context) {
         super(context, R.layout.friends_item, data);
         this.dataSet = data;
@@ -34,9 +35,7 @@ public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View
     }
 
     @Override
-    public void onClick(View v) {
-        //send friend request
-    }
+    public void onClick(View v) {}
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -46,6 +45,7 @@ public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View
         final View result;
 
         if(convertView == null) {
+            //converts Views in the listView to internal format for getting data on click
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.friends_item, parent, false);
@@ -61,15 +61,12 @@ public class SearchAdapter extends ArrayAdapter<SearchDataModel> implements View
             result = convertView;
         }
 
+        //sets details from the given item in the list
         viewHolder.username.setText(dataModel.getUsername());
         viewHolder.name.setText(dataModel.getName());
         viewHolder.department.setText(dataModel.getDepartment());
 
         return convertView;
-    }
-
-    public void onTaskCompleted(String result) throws JSONException {
-        results = new JSONParser(result);
     }
 
 }
