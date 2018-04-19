@@ -27,7 +27,7 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_friends);
+        setContentView(R.layout.friend_requests); //TO DO: find XML name
         people = (ListView) findViewById(R.id.people);
         Map map = new HashMap();
         map.put("queryType", "getFriendRequests");
@@ -40,13 +40,13 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SearchDataModel data = dataModel.get(position);
-
+                Toast.makeText(this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
                 //when an item is clicked on, try sending a friend request to that person
                 Map map = new HashMap();
                 map.put("queryType", "respondFriendship");
                 map.put("username", User.getUsername());
                 map.put("responseType", 1);
-                new Database(SearchFriendsActivity.this).execute(map);
+                new Database(FriendRequestsActivity.this).execute(map);
             }
         });
     }
