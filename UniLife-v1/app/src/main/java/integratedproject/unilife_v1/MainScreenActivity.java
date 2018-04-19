@@ -37,7 +37,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         friends.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), FriendRequestsActivity.class));
+                startActivity(new Intent(view.getContext(), FriendsActivity.class));
             }
         });
 
@@ -45,13 +45,6 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), settingsActivity.class));
-            }
-        });
-
-        title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), SearchFriendsActivity.class));
             }
         });
 

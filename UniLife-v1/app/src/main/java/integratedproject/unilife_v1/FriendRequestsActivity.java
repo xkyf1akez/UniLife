@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,62 +23,66 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
     private JSONParser results;
     private ListView people;
     private ArrayList<SearchDataModel> dataModel;
-    private static SearchAdapter searchAdapter;
+    private static SearchAdapter requestAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friend_requests); //TO DO: find XML name
-        people = (ListView) findViewById(R.id.people);
-        Map map = new HashMap();
-        map.put("queryType", "getFriendRequests");
-        map.put("Username", User.getUsername()); 
-        new Database(FriendRequestsActivity.this).execute(map);
+        people = (ListView) findViewById(R.id.requests);
+        dataModel = new ArrayList<>();
+
+        getUsers();
         
-        searchAdapter = new SearchAdapter(dataModel, getApplicationContext());
-        people.setAdapter(searchAdapter);
+        requestAdapter = new SearchAdapter(dataModel, getApplicationContext());
+        people.setAdapter(requestAdapter);
+
         people.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SearchDataModel data = dataModel.get(position);
-                Toast.makeText(this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(FriendRequestsActivity.this, "Friend Request Sent", Toast.LENGTH_SHORT).show();
                 //when an item is clicked on, try sending a friend request to that person
                 Map map = new HashMap();
                 map.put("queryType", "respondFriendship");
                 map.put("username", User.getUsername());
+                map.put("friend", data.getUsername());
                 map.put("responseType", 1);
                 new Database(FriendRequestsActivity.this).execute(map);
             }
         });
     }
 
+    private void getUsers() {
+        Map map = new HashMap();
+        map.put("queryType", "getFriendRequests");
+        map.put("username", User.getUsername());
+        new Database(FriendRequestsActivity.this).execute(map);
+    }
+
     public void onTaskCompleted(String result) throws JSONException{
         results = new JSONParser(result);
         dataModel = new ArrayList<>();
 
-        if(results.getQueryType().equals("getUsers")) {
-            if (results.getSuccess()) {
-                //if successfully got users, add them to the dataModel and display in the listView
+        if(results.getQueryType().equals("getFriendRequests")) {
+            if(results.numOfResults() > 0) {
                 for (int i = 0; i < results.numOfResults(); i++) {
                     dataModel.add(new SearchDataModel(results.getString(i, "username"), results.getString(i, "firstName") + " " + results.getString(i, "surname"), results.getString(i, "department")));
                 }
-                searchAdapter = new SearchAdapter(dataModel, getApplicationContext());
-                people.setAdapter(searchAdapter);
-
             } else {
                 Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
             }
+            requestAdapter = new SearchAdapter(dataModel, getApplicationContext());
+            people.setAdapter(requestAdapter);
         } else if(results.getQueryType().equals("respondFriendship")) {
+            Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
             if(results.getSuccess()) {
-                //if successfully sent request, let the user know
-                Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
+                getUsers();
             }
         } else {
-            Toast.makeText(this, "Server error. Please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Internal server error, please try again", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }

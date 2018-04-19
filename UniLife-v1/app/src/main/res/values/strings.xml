@@ -22,5 +22,6 @@
     <string name="title_activity_new_event">newEventActivity</string>
     <string name="title_activity_settings">settingsActivity</string>
     <string name="title_activity_search_friends">searchFriendsActivity</string>
+    <string name="title_activity_friends">FriendsActivity</string>
 
 </resources>
