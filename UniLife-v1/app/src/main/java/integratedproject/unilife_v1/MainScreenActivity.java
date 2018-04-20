@@ -2,8 +2,10 @@ package integratedproject.unilife_v1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.MonthDisplayHelper;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -18,8 +20,22 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
     private ImageButton friends;
     private TextView title;
 
+    private static int SPLASH_TIME_OUT = 3000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //TODO: FIX THE FOLLOWING CODE [splash screen]
+        new Handler().postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                Intent SplashIntent = new Intent(getApplicationContext(),SplashActivity.class);
+                startActivity(SplashIntent);
+                finish();
+            }
+        },SPLASH_TIME_OUT);
+        //TODO: FIX THE ABOVE CODE
+
         if(!User.isLoggedIn()) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             //returns user to login page if not logged in
@@ -27,6 +43,10 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage);
+
+
+
+
 
         settings = (ImageButton)findViewById(R.id.settings);
         today = (ImageButton)findViewById(R.id.todayEvents);
