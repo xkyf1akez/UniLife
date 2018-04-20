@@ -15,6 +15,7 @@ import android.util.Log;
 import android.content.Intent;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -35,7 +36,15 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
     private ListView events;
     private FloatingActionButton newEvent;
     private ArrayList<CalendarDataModel> dataModel;
+    private ArrayList<ScheduleDataModel> friendsDataModel;
     private static CalendarAdaptor calendarAdaptor;
+    private static CalendarFriendsAdaptor calendarFriendsAdaptor;
+
+    private int day;
+    private int month;
+    private int year;
+
+    private boolean showFriendSchedules = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstantState) {
@@ -79,12 +88,34 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         //runs code when menu item is selected
-        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
-        return true;
+        switch(item.getItemId()) {
+            case R.id.toggleEvents:
+                if(!showFriendSchedules) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+                    Map map = new HashMap();
+                    map.put("queryType", "getFriendSchedules");
+                    map.put("username", User.getUsername());
+                    map.put("date", year + "-" + month + "-" + day);
+                    map.put("time", sdf.format(Calendar.getInstance().getTime()));
+                    new Database(this).execute(map);
+                    showFriendSchedules = true;
+                } else {
+                    getEvents(year, month - 1, day);
+                    showFriendSchedules = false;
+                }
+                return true;
+
+            default:
+                return true;
+        }
     }
 
     private void getEvents(int year, int month, int day) {
         String date = year + "-" + (month + 1) + "-" + day;
+        this.year = year;
+        this.month = month + 1;
+        this.day = day;
         Map map = new HashMap();
         map.put("queryType", "getEvents");
         map.put("username", User.getUsername());
@@ -96,16 +127,32 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
     public void onTaskCompleted(String result) throws JSONException{
         results = new JSONParser(result);
         dataModel = new ArrayList<>();
-        if(results.getSuccess()) {
-            for (int i = 0; i < results.numOfResults(); i++) {
-                //adds all event details to a dataModel and displays it in the listView
-                dataModel.add(new CalendarDataModel(results.getString(i, "title"), results.getString(i, "startTime").substring(0,5) + " - " + results.getString(i, "endTime").substring(0,5), results.getString(i, "location"), results.getString(i, "category"), results.getString(i, "status")));
-            }
-            calendarAdaptor = new CalendarAdaptor(dataModel, getApplicationContext());
-            events.setAdapter(calendarAdaptor);
+        friendsDataModel = new ArrayList<>();
 
+        if(results.getQueryType().equals("getEvents")) {
+            if (results.getSuccess()) {
+                for (int i = 0; i < results.numOfResults(); i++) {
+                    //adds all event details to a dataModel and displays it in the listView
+                    dataModel.add(new CalendarDataModel(results.getString(i, "title"), results.getString(i, "startTime").substring(0, 5) + " - " + results.getString(i, "endTime").substring(0, 5), results.getString(i, "location"), results.getString(i, "category"), results.getString(i, "status")));
+                }
+                calendarAdaptor = new CalendarAdaptor(dataModel, getApplicationContext());
+                events.setAdapter(calendarAdaptor);
+
+            } else {
+                Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        } else if(results.getQueryType().equals("getFriendSchedules")) {
+            if(results.getSuccess()) {
+                for(int i = 0; i < results.numOfResults(); i++) {
+                    friendsDataModel.add(new ScheduleDataModel(results.getString(i, "username"), results.getString(i, "name"), results.getString(i, "availability")));
+                }
+                calendarFriendsAdaptor = new CalendarFriendsAdaptor(friendsDataModel, getApplicationContext());
+                events.setAdapter(calendarAdaptor);
+            } else {
+                Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Internal server error, please try again", Toast.LENGTH_SHORT).show();
         }
     }
 }

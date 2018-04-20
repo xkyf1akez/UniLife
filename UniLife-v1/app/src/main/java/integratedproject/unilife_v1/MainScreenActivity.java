@@ -25,6 +25,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /*
         //TODO: FIX THE FOLLOWING CODE [splash screen]
         new Handler().postDelayed(new Runnable(){
             @Override
@@ -35,6 +36,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
             }
         },SPLASH_TIME_OUT);
         //TODO: FIX THE ABOVE CODE
+        */
 
         if(!User.isLoggedIn()) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
