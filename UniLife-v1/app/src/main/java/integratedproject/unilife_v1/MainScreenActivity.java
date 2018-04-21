@@ -15,10 +15,8 @@ import org.json.JSONException;
 
 public class MainScreenActivity extends AppCompatActivity implements onTaskCompleted{
     private ImageButton settings;
-    private ImageButton today;
     private ImageButton calender;
     private ImageButton friends;
-    private TextView title;
 
     private static int SPLASH_TIME_OUT = 3000;
 
@@ -47,14 +45,9 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         setContentView(R.layout.homepage);
 
 
-
-
-
         settings = (ImageButton)findViewById(R.id.settings);
-        today = (ImageButton)findViewById(R.id.todayEvents);
         calender = (ImageButton)findViewById(R.id.calender);
         friends = (ImageButton)findViewById(R.id.friends);
-        title = (TextView)findViewById(R.id.Title);
 
         friends.setOnClickListener(new View.OnClickListener() {
             @Override

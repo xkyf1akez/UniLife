@@ -66,7 +66,11 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
-                getEvents(year, month, day);
+                if(showFriendSchedules) {
+                    getSchedules(year, month, day);
+                } else {
+                    getEvents(year, month, day);
+                }
                 //gets events for selected page
             }
         });
@@ -91,19 +95,13 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         switch(item.getItemId()) {
             case R.id.toggleEvents:
                 if(!showFriendSchedules) {
-                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-
-                    Map map = new HashMap();
-                    map.put("queryType", "getFriendSchedules");
-                    map.put("username", User.getUsername());
-                    map.put("date", year + "-" + month + "-" + day);
-                    map.put("time", sdf.format(Calendar.getInstance().getTime()));
-                    new Database(this).execute(map);
+                    getSchedules(year, month - 1, day);
                     showFriendSchedules = true;
                 } else {
                     getEvents(year, month - 1, day);
                     showFriendSchedules = false;
                 }
+                Log.d("showFriendSchedules", (showFriendSchedules) ? "true" : "false");
                 return true;
 
             default:
@@ -124,6 +122,17 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
         new Database(CalendarActivity.this).execute(map);
     }
 
+    public void getSchedules(int year, int month, int day) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+        Map map = new HashMap();
+        map.put("queryType", "getFriendSchedules");
+        map.put("username", User.getUsername());
+        map.put("date", year + "-" + (month + 1) + "-" + day);
+        map.put("time", sdf.format(Calendar.getInstance().getTime()));
+        new Database(this).execute(map);
+    }
+
     public void onTaskCompleted(String result) throws JSONException{
         results = new JSONParser(result);
         dataModel = new ArrayList<>();
@@ -142,12 +151,13 @@ public class CalendarActivity extends AppCompatActivity implements onTaskComplet
                 Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
             }
         } else if(results.getQueryType().equals("getFriendSchedules")) {
+
             if(results.getSuccess()) {
                 for(int i = 0; i < results.numOfResults(); i++) {
                     friendsDataModel.add(new ScheduleDataModel(results.getString(i, "username"), results.getString(i, "name"), results.getString(i, "availability")));
                 }
                 calendarFriendsAdaptor = new CalendarFriendsAdaptor(friendsDataModel, getApplicationContext());
-                events.setAdapter(calendarAdaptor);
+                events.setAdapter(calendarFriendsAdaptor);
             } else {
                 Toast.makeText(getApplicationContext(), results.getMessage(), Toast.LENGTH_SHORT).show();
             }
