@@ -122,7 +122,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 DatePickerDialog datePicker = new DatePickerDialog(newEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        startDateTrigger.setText(year + "-" + month + "-" + day);
+                        startDateTrigger.setText(year + "-" + (month + 1) + "-" + day);
                         startYear = year;
                         startMonth = month;
                         startDay = day;
@@ -144,7 +144,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 DatePickerDialog datePicker = new DatePickerDialog(newEventActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        endDateTrigger.setText(year + "-" + month + "-" + day);
+                        endDateTrigger.setText(year + "-" + (month + 1) + "-" + day);
                         endYear = year;
                         endMonth = month;
                         endDay = day;
