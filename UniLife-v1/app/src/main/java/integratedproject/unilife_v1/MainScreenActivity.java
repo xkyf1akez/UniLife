@@ -13,11 +13,12 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-public class MainScreenActivity extends AppCompatActivity implements onTaskCompleted{
+public class MainScreenActivity extends AppCompatActivity{
     private ImageButton settings;
     private ImageButton calender;
     private ImageButton friends;
     private ImageButton searchFriends;
+    private TextView title;
 
     private static int SPLASH_TIME_OUT = 3000;
 
@@ -50,6 +51,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         calender = (ImageButton)findViewById(R.id.calender);
         friends = (ImageButton)findViewById(R.id.friends);
         searchFriends = (ImageButton)findViewById(R.id.searchFriends);
+        title = (TextView)findViewById(R.id.Title);
 
         friends.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,15 +76,11 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
 
         searchFriends.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(view.getContext(), SearchFriendsActivity.class));
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), SearchFriendsActivity.class));
             }
         });
 
 
-    }
-
-    public void onTaskCompleted(String result) throws JSONException {
-        JSONParser results = new JSONParser(result);
     }
 }
