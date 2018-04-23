@@ -17,6 +17,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
     private ImageButton settings;
     private ImageButton calender;
     private ImageButton friends;
+    private ImageButton searchFriends;
 
     private static int SPLASH_TIME_OUT = 3000;
 
@@ -48,6 +49,7 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
         settings = (ImageButton)findViewById(R.id.settings);
         calender = (ImageButton)findViewById(R.id.calender);
         friends = (ImageButton)findViewById(R.id.friends);
+        searchFriends = (ImageButton)findViewById(R.id.searchFriends);
 
         friends.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +69,13 @@ public class MainScreenActivity extends AppCompatActivity implements onTaskCompl
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(v.getContext(), CalendarActivity.class));
+            }
+        });
+
+        searchFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(view.getContext(), SearchFriendsActivity.class));
             }
         });
 
