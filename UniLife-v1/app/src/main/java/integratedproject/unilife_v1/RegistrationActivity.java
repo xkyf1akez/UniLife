@@ -46,7 +46,7 @@ public class RegistrationActivity extends AppCompatActivity implements onTaskCom
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), LoginActivity.class));
+                RegistrationActivity.super.onBackPressed();
             }
         });
 
