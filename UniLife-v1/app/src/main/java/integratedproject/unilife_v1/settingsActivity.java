@@ -56,6 +56,7 @@ public class settingsActivity extends AppCompatActivity implements onTaskComplet
                 map.put("privacy", privacy.isChecked() ? 1 : 0);
                 map.put("notifications", notifications.isChecked() ? 1 : 0);
                 map.put("username", User.getUsername());
+                //updates users details in the database
 
                 new Database(settingsActivity.this).execute(map);
             }
@@ -64,6 +65,7 @@ public class settingsActivity extends AppCompatActivity implements onTaskComplet
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //deletes user from system
                 Map map = new HashMap();
                 map.put("queryType", "delete");
                 map.put("username", User.getUsername());

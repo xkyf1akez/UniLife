@@ -59,6 +59,8 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
         map.put("queryType", "getFriendRequests");
         map.put("username", User.getUsername());
         new Database(FriendRequestsActivity.this).execute(map);
+
+        //gets friend requests for the given user
     }
 
     public void onTaskCompleted(String result) throws JSONException{
@@ -72,6 +74,7 @@ public class FriendRequestsActivity extends AppCompatActivity implements onTaskC
                 }
             } else {
                 Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();
+                //returns friend requests in a listView
             }
             requestAdapter = new SearchAdapter(dataModel, getApplicationContext());
             people.setAdapter(requestAdapter);

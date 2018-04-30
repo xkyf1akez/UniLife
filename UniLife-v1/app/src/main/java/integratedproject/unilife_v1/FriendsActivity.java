@@ -36,6 +36,7 @@ public class FriendsActivity extends AppCompatActivity implements onTaskComplete
         map.put("queryType", "getFriends");
         map.put("username", User.getUsername());
         new Database(this).execute(map);
+        //gets friends
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,7 @@ public class FriendsActivity extends AppCompatActivity implements onTaskComplete
                 }
                 friendsAdapter = new SearchAdapter(dataModel, getApplicationContext());
                 friends.setAdapter(friendsAdapter);
+                //displays friends in listView
             }
         } else {
             Toast.makeText(this, results.getMessage(), Toast.LENGTH_SHORT).show();

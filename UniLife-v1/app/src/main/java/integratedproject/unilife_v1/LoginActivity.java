@@ -96,5 +96,6 @@ public class LoginActivity extends AppCompatActivity implements onTaskCompleted 
         User.setPrivacyLevel(results.getInt(0, "privacyLevel"));
         User.setNotificationLevel(results.getInt(0, "notificationLevel"));
         User.setColorScheme(results.getInt(0, "colorScheme"));
+        //creates the user in the User class
     }
 }

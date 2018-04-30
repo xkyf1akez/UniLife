@@ -25,19 +25,6 @@ public class MainScreenActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /*
-        //TODO: FIX THE FOLLOWING CODE [splash screen]
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                Intent SplashIntent = new Intent(getApplicationContext(),SplashActivity.class);
-                startActivity(SplashIntent);
-                finish();
-            }
-        },SPLASH_TIME_OUT);
-        //TODO: FIX THE ABOVE CODE
-        */
-
         if(!User.isLoggedIn()) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             //returns user to login page if not logged in

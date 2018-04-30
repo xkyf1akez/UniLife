@@ -73,7 +73,6 @@ public class SearchFriendsActivity extends AppCompatActivity implements onTaskCo
             }
         });
 
-        //super.onBackPressed();
     }
 
     public void onTaskCompleted(String result) throws JSONException{

@@ -88,6 +88,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 }, hour, minute, true);
                 timePicker.setTitle("Select time");
                 timePicker.show();
+                //on click of the start time field, displays a time picker and gets the selected time
             }
         });
 
@@ -108,6 +109,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 }, hour, minute, true);
                 timePicker.setTitle("Select time");
                 timePicker.show();
+                //on click of the end time field, displays a time picker and gets the selected time
             }
         });
 
@@ -130,6 +132,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 }, year, month, day);
                 datePicker.setTitle("Select date");
                 datePicker.show();
+                //on click of the start date field, displays a time picker and gets the selected time
             }
         });
 
@@ -152,6 +155,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 }, year, month, day);
                 datePicker.setTitle("Select date");
                 datePicker.show();
+                //on click of the end date field, displays a time picker and gets the selected time
             }
         });
 
@@ -163,6 +167,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                 } else {
                     weeksToRepeat.setEnabled(false);
                 }
+                //stops you adding weeks to repeat if the event isn't to be repeated
             }
         });
 
@@ -204,6 +209,7 @@ public class newEventActivity extends AppCompatActivity implements onTaskComplet
                             error = "End time must be after the start";
                         }
                     }
+                    //checks the end date and time are after the start date and time
                 }
                 //checks that the end date / time are after the start
 
